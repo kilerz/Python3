@@ -1,3 +1,4 @@
 # Python3
 Flask python3 dan render_template
-testing python3 untuk web developer
+testing python3 untuk web developer, nampilin data dari xampp
+
