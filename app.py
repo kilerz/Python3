@@ -1,12 +1,38 @@
-
 from flask import Flask, render_template
+import pymysql
 
 app = Flask(__name__)
 
-@app.route("/")
-def coba():
-    return render_template('coba.html')
 
+class Database:
+    def __init__(self):
+        host = "localhost"
+        user = "root"
+        password = ""
+        db = "crud"
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, debug=True)
+        self.con = pymysql.connect(host=host, user=user, password=password, db=db, cursorclass=pymysql.cursors.
+                                   DictCursor)
+        self.cur = self.con.cursor()
+
+    def list_employees(self):
+        self.cur.execute("SELECT name from students")
+        result = self.cur.fetchall()
+
+        return result
+
+@app.route('/')
+def employees():
+
+    def db_query():
+        db = Database()
+        emps = db.list_employees()
+
+        return emps
+
+    res = db_query()
+
+    return render_template('coba2.html', result=res, content_type='application/json')
+
+if __name__== "__main__":
+    app.run(host='0.0.0.0', port=8090, debug=True)
